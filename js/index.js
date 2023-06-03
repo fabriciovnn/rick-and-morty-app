@@ -3,12 +3,26 @@ let paginaAtual = 1
 //dom content load
 document.addEventListener('DOMContentLoaded', async () => {
 
-  const charactersList = await buscarPersonagens()
-  
+  const respostaApi = await buscarPersonagens()
+  const charactersList = respostaApi.results
+
+  const paragrafoTotalPersonagens = document.getElementById('total-personagens')
+  paragrafoTotalPersonagens.innerHTML = `CHARACTERS: ${respostaApi.info.count}`
+
+  const paragrafoLocalizacoes = document.getElementById('total-localizacoes')
+  const respostaLocation = await apiConfig.get('/location')
+  const totalLocalizacoes = respostaLocation.data.info.count
+  paragrafoLocalizacoes.innerHTML = `LOCATIONS: ${totalLocalizacoes}`
+
+  const paragrafoTotalEpisodios = document.getElementById('total-episodios')
+  const respostaEpisodes = await apiConfig.get('/episode')
+  const totalEpisodios = respostaEpisodes.data.info.count
+  paragrafoTotalEpisodios.innerHTML = `EPISODES: ${totalEpisodios}`
+
+
   montarCards(charactersList)
-
+  montarBotoes(respostaApi.info.pages)
 })
-
 
 //buscar personagens
 async function buscarPersonagens(page) {
@@ -19,19 +33,18 @@ async function buscarPersonagens(page) {
         page: page || 1
       }
     })
-    console.log(response.data.results)
-    return response.data.results 
+    console.log(response)
+    return response.data 
   } catch (error) {
     console.log(error)
     return []
   }
 }
 
-
 // montar cards
 function montarCards(characters) {
   const sectionCards = document.getElementById('container-cards')
-  // sectionCards.innerHTML = ''
+  sectionCards.innerHTML = ''
 
   characters.forEach(async (character) => {
     const divCard = document.createElement('div')
@@ -98,3 +111,28 @@ function montarCards(characters) {
 }
 
 ///montar botoes
+function montarBotoes(quantidade) {
+  for(let contador = 1; contador <= quantidade; contador++) {
+    const containerPaginacao = document.querySelector('.container-paginacao')
+
+    const button = document.createElement('button')
+    button.setAttribute('class', 'btn-paginacao')
+    button.innerText = `Page ${contador}`
+
+    if(contador === paginaAtual) {
+      button.disabled = true
+    }
+
+    button.addEventListener('click', async () => {
+      const respostaApi = await buscarPersonagens(contador)
+      const buttons = document.querySelectorAll('.btn-paginacao')
+
+      buttons.forEach(item => item.disabled = false)
+      button.disabled = true
+
+      montarCards(respostaApi.results)
+    })
+
+    containerPaginacao.appendChild(button)
+  }
+}

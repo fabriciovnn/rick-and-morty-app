@@ -141,6 +141,7 @@ footer {
 }
 
 .info-footer p {
+  font-weight: bold;
   text-transform: uppercase;
   margin-left: 20px;
 }
