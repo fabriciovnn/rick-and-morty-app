@@ -186,7 +186,8 @@ footer {
   }
 
   #main-header input {
-    max-width: 300px;
+    max-width: 200px;
+    padding: 5px;
     border: 1px solid #24325f;
   }
 
@@ -203,6 +204,7 @@ footer {
   }
 
   .card img {
+    display: block;
     width: 100px;
   }
 
