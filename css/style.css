@@ -167,7 +167,7 @@ footer {
   }
 
   #main-header input {
-    width: 400px;
+    max-width: 400px;
     border: 2px solid #24325f;
   }
 }
@@ -180,11 +180,12 @@ footer {
   }
 
   #main-header h1 {
-    font-size: 2rem;
+    font-size: 1.5rem;
+    text-align: center;
   }
 
   #main-header input {
-    width: 300px;
+    max-width: 300px;
     border: 1px solid #24325f;
   }
 
