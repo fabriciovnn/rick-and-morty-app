@@ -17,7 +17,7 @@
   font-size: 5.625rem;
   flex: 0 1 auto;
   font-family: Georgia, 'Times New Roman', Times, serif;
-  color: #2F4368;
+  color: #0f3c80;
   margin-bottom: 20px;
 }
 
@@ -31,11 +31,11 @@
 
 /*cards*/
 
-.container-cards {
+#container-cards {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  background-color: #2F4368;
+  background-color: #0f3c80;
   padding: 60px 20px;
 }
 
@@ -60,8 +60,34 @@
   color: #69c8ec;
 }
 
-.info-card h2 {
-  letter-spacing: 0.1rem;
+.status-alive::before {
+  content: '';
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #7cf448;
+  margin-right: 5px;
+}
+
+.status-dead::before {
+  content: '';
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: crimson;
+  margin-right: 5px;
+}
+
+.status-unknown::before {
+  content: '';
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #ccc;
+  margin-right: 5px;
 }
 
 .location-info, .character-info {
@@ -88,22 +114,22 @@
 .container-paginacao button {
   width: 80px;
   margin: 0 2px 5px 2px;
-  background-color: #6a76bf;
-  color: #24325f;
+  background-color: #318bbe;
+  color: #0f3c80;
   border-radius: 5px;
   padding: 5px 10px;
-  border: 1px #24325f solid;
+  border: 1px #0f3c80 solid;
 }
 
 .container-paginacao button:hover {
-  background-color: #24325f;
-  color: #69c8ec;
+  background-color: #0f3c80;
+  color: #318bbe;
 }
 
 /* footer */
 footer {
-  background-color: #2F4368;
-  color: #6a76bf;
+  background-color: #0f3c80;
+  color: #318bbe;
   padding: 80px 20px 20px 20px;
   font-family: Georgia, 'Times New Roman', Times, serif;
 }
