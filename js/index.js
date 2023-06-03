@@ -113,7 +113,7 @@ function montarCards(characters) {
 ///montar botoes
 function montarBotoes(quantidade) {
   for(let contador = 1; contador <= quantidade; contador++) {
-    const containerPaginacao = document.querySelector('.container-paginacao')
+    const containerPaginacao = document.getElementById('container-paginacao')
 
     const button = document.createElement('button')
     button.setAttribute('class', 'btn-paginacao')
