@@ -110,20 +110,20 @@
   margin-bottom: 20px;
 }
 
-#container-paginacao button {
+ .btn-paginacao {
   width: 80px;
   margin: 0 2px 5px 2px;
   background-color: #318bbe;
-  color: #0f3c80;
   border-radius: 5px;
   padding: 5px 10px;
   border: 1px #0f3c80 solid;
+  cursor: pointer;
 }
 
-#container-paginacao button:hover {
-  background-color: #0f3c80;
-  color: #318bbe;
-}
+ .button-disable {
+  cursor:not-allowed;
+  background-color: #ccc;
+ }
 
 /* footer */
 footer {

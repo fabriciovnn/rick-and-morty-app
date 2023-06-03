@@ -33,7 +33,6 @@ async function buscarPersonagens(page) {
         page: page || 1
       }
     })
-    console.log(response)
     return response.data 
   } catch (error) {
     console.log(error)
@@ -118,6 +117,7 @@ function montarBotoes(quantidade) {
     const button = document.createElement('button')
     button.setAttribute('class', 'btn-paginacao')
     button.innerText = `Page ${contador}`
+    
 
     if(contador === paginaAtual) {
       button.disabled = true
@@ -127,8 +127,14 @@ function montarBotoes(quantidade) {
       const respostaApi = await buscarPersonagens(contador)
       const buttons = document.querySelectorAll('.btn-paginacao')
 
-      buttons.forEach(item => item.disabled = false)
+      buttons.forEach(item => {
+        item.disabled = false
+        item.setAttribute('class', 'btn-paginacao')
+      })
       button.disabled = true
+      button.classList.add('button-disable')
+
+
 
       montarCards(respostaApi.results)
     })
