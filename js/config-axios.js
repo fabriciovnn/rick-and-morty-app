@@ -1,3 +1,3 @@
-const apiConfig = axios.create({
+const api = axios.create({
   baseURL: 'https://rickandmortyapi.com/api'
 })

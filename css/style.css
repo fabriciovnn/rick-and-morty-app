@@ -1,243 +1,193 @@
-/* estilos gerais */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-/* main header */
-#main-header {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin: 60px 0;
-}
-
-#main-header h1 {
-  font-size: 5.625rem;
-  font-family: Georgia, 'Times New Roman', Times, serif;
-  color: #0f3c80;
-  margin-bottom: 20px;
-}
-
-#main-header input {
-  width: 800px;
-  padding: 10px;
-  border-radius: 10px;
-  border: 3px solid #24325f;
-  color: #24325f;
-}
-
-/*cards*/
-
-#container-cards {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  background-color: #0f3c80;
-  padding: 60px 20px;
-}
-
-.card {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  width: 575px;
-  display: flex;
-  border-radius: 10px;
-  background-color: #24325f;
-  margin-bottom: 20px;
-}
-
-.card img {
-  border-radius: 10px 0 0 10px;
-}
-
-.info-card {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  padding: 5px 15px;
-  color: #69c8ec;
-}
-
-.status-alive::before {
-  content: '';
-  display: inline-block;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background-color: #7cf448;
-  margin-right: 5px;
-}
-
-.status-dead::before {
-  content: '';
-  display: inline-block;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background-color: crimson;
-  margin-right: 5px;
-}
-
-.status-unknown::before {
-  content: '';
-  display: inline-block;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background-color: #ccc;
-  margin-right: 5px;
-}
-
-.location-info, .character-info {
-  margin-bottom: 5px;
-}
-
-.location-info {
-  color: #6a76bf;
-}
-
-#img-portal {
-  display: block;
-  margin: 0 auto;
-}
-
-/* botoes */
-#container-paginacao {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-bottom: 20px;
-}
-
- .btn-paginacao {
-  width: 80px;
-  margin: 0 2px 5px 2px;
-  background-color: #318bbe;
-  border-radius: 5px;
-  padding: 5px 10px;
-  border: 1px #0f3c80 solid;
+/*header*/
+.input-group-text {
+  background-color: #fff;
+  border: var(--bs-border-width) solid #39ff14;
   cursor: pointer;
 }
 
- .button-disable {
-  cursor:not-allowed;
+.form-control {
+  border: var(--bs-border-width) solid #39ff14;
+  border-right-width: 0;
+}
+
+.form-control:focus {
+  border-color: #39ff14;
+  border-right-width: 0;
+  box-shadow: 0 0 0 0;
+}
+
+h1 {
+  color: #489529;
+}
+
+.nome-personagem, .span-info {
+  color: #39ff14
+}
+
+/* main */
+main {
+  background-color: #252525;
+  background-image: linear-gradient(0deg, #252525 0%, #262626 90%, #489529 100%)
+}
+
+.card {
+  background-color: transparent ;
+  color: white;
+  border: 1px solid #39ff14;
+}
+
+.status::before {
+  content: '';
+  display: inline-block;
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  margin-right: 5px;
+}
+
+.alive::before {
+  background-color: #39ff14;
+}
+
+.dead::before {
+  background-color: crimson;
+}
+
+.unknown::before {
   background-color: #ccc;
- }
+}
+
+.bg-image {
+  height: 1000px;
+  background-image: url('../imgs/FUNDO_2.jpg'); 
+  background-size: cover;
+  background-position: bottom;
+  background-repeat: no-repeat;
+}
+
+/* pagination */
+.active > .page-link {
+    background-color: #39ff14;
+    color: #252525;
+    border-color: #39ff14;
+  }  
+
+.page-link, #voltar {
+	color: #39ff14;
+	cursor: pointer;
+	background-color: #252525;
+	border-color: #39ff14;
+}
+
+.page-link:hover, #voltar:hover {
+  color: #39ff14;
+  background-color: seagreen;
+  border-color: #39ff14;
+}
+
+.active > .page-link:hover {
+  background-color: seagreen;
+  color: #39ff14;
+}
+
+.disabled > .page-link {
+  color: seagreen;
+  background-color:#262626;
+  border-color: #39ff14;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
 
 /* footer */
 footer {
-  background-color: #0f3c80;
-  color: #318bbe;
-  padding: 80px 20px 20px 20px;
-  font-family: Georgia, 'Times New Roman', Times, serif;
+  background-color: #489529;
+  color: #252525;
 }
 
-#info-footer {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 120px;
+/* Animação */
+.fade-in-title {
+  opacity: 0;
+  animation: fade-in 1s ease-in-out forwards;
 }
 
-#info-footer p {
-  font-weight: bold;
-  text-transform: uppercase;
-  margin-left: 20px;
+.fade-in-input {
+  opacity: 0;
+  animation: fade-in 2s ease-in-out forwards;
 }
 
-#copy {
-  font-size: .75rem;
-  text-align: center;
-  font-weight: bold;
+.fade-in-content {
+  opacity: 0;
+  animation: fade-in 3s ease-in-out forwards;
 }
 
-#copy span {
-  color: white
-}
-
-/*tablet*/
-@media (min-width: 577px) and (max-width: 992px) {
-  #main-header {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  #main-header h1 {
-    font-size: 2.75rem;
-  }
-
-  #main-header input {
-    max-width: 400px;
-    border: 2px solid #24325f;
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  } to {
+    opacity: 1;
   }
 }
 
+/* MEDIA QUERIES */
 /* mobile */
-@media (max-width: 576px) {
-  /* main-header mobile */
-  #main-header {
-    flex-direction: column;
-    align-items: center;
+@media (max-width: 768px) {
+  h1 {
+    font-size: 6rem;
   }
 
-  #main-header h1 {
-    font-size: 1.5rem;
+  .nome-personagem {
+    font-size: 2.5rem;
     text-align: center;
   }
 
-  #main-header input {
-    max-width: 200px;
-    padding: 5px;
-    border: 1px solid #24325f;
+  .dlInfo {
+    font-size: 2rem;
   }
 
-  /* cards mobile */
-
-  #container-cards {
-    padding: 15px 5px;
-    flex-direction: column;
-    align-items: center;
+  .bg-image {
+    height: 300px;
   }
 
-  .card {
-    width: 300px;
+}
+
+ /* medium */
+@media (min-width: 769px) and (max-width: 991px) {
+  h1 {
+    font-size: 3.5rem;
   }
 
-  .card img {
-    display: block;
-    width: 100px;
+  .nome-personagem {
+    font-size: 2.5rem;
   }
 
-  .info-card {
-    padding: 5px;
+  .dlInfo {
+    font-size: 2rem
   }
 
-  .info-card h2 {
-    font-size: .75rem;
+  .bg-image {
+    height: 400px;
+  }
+}
+
+/* large */
+@media (min-width: 992px) and (max-width: 1399px) {
+  h1 {
+    font-size: 5rem;
   }
 
-  .info-card p {
-    font-size: 0.7rem;
+  .dlInfo {
+    font-size: 1.75rem
   }
 
-/* footer-mobile */
-  footer {
-    padding: 40px 10px 10px 10px;
+}
+
+/* Extra large */
+@media (min-width: 1400px) {
+  h1 {
+    font-size: 5rem;
   }
 
-  #info-footer {
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 60px;
-  }
-
-  #info-footer p {
-    margin-bottom: 10px;
-    font-size: 0.75rem;
-  }
-
-  .status-alive::before, .status-dead::before, .status-unknown::before {
-    width: 6px;
-    height: 6px;
-  }
 }

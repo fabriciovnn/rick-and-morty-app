@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<head>
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,7 +16,7 @@
     <!-- style css -->
     <link rel="stylesheet" href="./css/style.css">
   </head>
-
+</head>
 <body>
   <header class="container-fluid mb-5">
     <nav class="navbar">
@@ -27,7 +28,7 @@
     </nav>
 
     <div class="row text-center g-4 p-5">
-      <div class="col-12  fade-in-title">
+      <div class="col-12 fade-in-title">
         <h1 class="fw-bold">API de Rick and Morty</h1>
       </div>
       <div class="col-12 d-flex justify-content-center fade-in-input">
@@ -44,31 +45,16 @@
 
   <main class="container-fluid">
     <div class="container">
-      <div class="row g-4 pt-5" id="row-cards">
-        <!-- espaço cards -->
+      <div class="row g-4 pt-5" id="row-card">
+        <!-- Espaço Card e Informações extras -->
       </div>
     </div>
 
     <!-- paginaçao -->
-    <div class="row mt-5">
-      <div class="col-12 d-flex justify-content-center">
-        <nav aria-label="...">
-          <ul class="pagination">
-            <li class="page-item disabled" id="botao-prev">
-              <a class="page-link"><i class="bi bi-chevron-compact-left"></i>Anterior</a>
-            </li>
-
-            <li class="page-item active" id="botao-atual">
-              <a class="page-link">1</a>
-            </li>
-
-            <li class="page-item" id="botao-next">
-              <a class="page-link">Próximo<i class="bi bi-chevron-compact-right"></i></a>
-            </li>
-          </ul>
-        </nav>
-      </div>
+    <div class="container d-flex justify-content-center mt-5">
+      <button type="button" class="btn btn-success" id="voltar">Voltar</button>
     </div>
+
 
     <div class="bg-image"></div>
 
@@ -77,10 +63,10 @@
   <footer class="container-fluid text-center fw-semibold pt-5">
     <div class="row text-uppercase">
       <div class="col-12 offset-lg-3 col-lg-2">
-        <p>Characters: <span class="span-info" id="total-personagens"></span></p>
+        <p>Character: <span class="span-info" id="personagem"></span></p>
       </div>
       <div class="col-12 col-lg-2">
-        <p>Locations: <span class="span-info" id="total-localizacoes"></span></p>
+        <p>Location: <span class="span-info" id="localizacao-personagem"></span></p>
       </div>
       <div class="col-12 col-lg-2">
         <p>Episodes: <span class="span-info" id="total-episodios"></span></p>
@@ -101,6 +87,6 @@
 
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script src="./js/config-axios.js"></script>
-  <script src="./js/index.js"></script>
+  <script src="./js/personagens.js"></script>
 </body>
 </html>

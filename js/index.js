@@ -1,144 +1,185 @@
+const botaoPrev = document.getElementById('botao-prev')
+const botaoAtual = document.getElementById('botao-atual')
+const botaoNext = document.getElementById('botao-next')
 let paginaAtual = 1
 
-//dom content load
+
 document.addEventListener('DOMContentLoaded', async () => {
-
   const respostaApi = await buscarPersonagens()
-  const charactersList = respostaApi.results
+  const characterList = respostaApi.results
 
-  const paragrafoTotalPersonagens = document.getElementById('total-personagens')
-  paragrafoTotalPersonagens.innerHTML = `CHARACTERS: ${respostaApi.info.count}`
+  const spanTotalPersonagens = document.getElementById('total-personagens')
+  spanTotalPersonagens.innerHTML = respostaApi.info.count
 
-  const paragrafoLocalizacoes = document.getElementById('total-localizacoes')
-  const respostaLocation = await apiConfig.get('/location')
+  const spanTotalLocalizacoes = document.getElementById('total-localizacoes')
+  const respostaLocation = await api.get('/location')
   const totalLocalizacoes = respostaLocation.data.info.count
-  paragrafoLocalizacoes.innerHTML = `LOCATIONS: ${totalLocalizacoes}`
+  spanTotalLocalizacoes.innerHTML = totalLocalizacoes
 
-  const paragrafoTotalEpisodios = document.getElementById('total-episodios')
-  const respostaEpisodes = await apiConfig.get('/episode')
+  const spanTotalEpisodios = document.getElementById('total-episodios')
+  const respostaEpisodes = await api.get('/episode')
   const totalEpisodios = respostaEpisodes.data.info.count
-  paragrafoTotalEpisodios.innerHTML = `EPISODES: ${totalEpisodios}`
+  spanTotalEpisodios.innerHTML = totalEpisodios
 
-
-  montarCards(charactersList)
-  montarBotoes(respostaApi.info.pages)
+  montarCards(characterList)
+  mudarBotoes(respostaApi.info.prev, respostaApi.info.next)
 })
 
-//buscar personagens
-async function buscarPersonagens(page) {
-  paginaAtual = page
+botaoNext.addEventListener('click', proximaPagina)
+botaoPrev.addEventListener('click', paginaAnterior)
+
+
+async function buscarPersonagens(pagina) {
   try{
-    const response = await apiConfig.get('/character', {
+    const response = await api.get('/character', {
       params: {
-        page: page || 1
+        page: pagina || 1
       }
     })
-    return response.data 
+    return response.data
   } catch (error) {
     console.log(error)
-    return []
+    alert('Não foi possível buscar os personagens')
+    return
   }
 }
 
-// montar cards
 function montarCards(characters) {
-  const sectionCards = document.getElementById('container-cards')
-  sectionCards.innerHTML = ''
+      /*
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="container">         
+          <div class="card">
+              <img src="./imgs/136.jpeg" class="card-img-top" alt="avatar">
+              <div class="card-body px-5">
+                <h5 class="card-title">Nome Personagem</h5>
+
+                <p class="card-text status alive">
+                  Vivo - Humano
+                </p>
+
+                <dl>
+                  <dt>Ultima localização conhecida:</dt>
+                  <dd>Planeta XPTO</dd>
+
+                  <dt>Visto a última vez em:</dt>
+                  <dd>Nome do Capítulo</dd>
+                </dl>
+              </div>
+          </div>
+        </div>
+      </div>
+    */
+  const rowCards = document.getElementById('row-cards')
+  rowCards.innerHTML = ''
 
   characters.forEach(async (character) => {
+    const divCol = document.createElement('div')
+    divCol.setAttribute('class', 'col-12 col-md-6 col-lg-4 fade-in-content')
+
+    const divContainerCards = document.createElement('div')
+    divContainerCards.classList.add('container')
+
     const divCard = document.createElement('div')
     divCard.classList.add('card')
+    divCard.addEventListener('click', () => {
+      localStorage.setItem('personagemId', `${character.id}`)
+      window.location.href = 'personagens.html'
+    })
 
-    const img = document.createElement('img')
-    img.setAttribute('src', `${character.image}`)
-    img.setAttribute('width', '230px')
-    img.setAttribute('alt', 'character image')
+    const imgCard = document.createElement('img')
+    imgCard.setAttribute('src', `${character.image}`)
+    imgCard.setAttribute('alt', 'avatar')
+    imgCard.setAttribute('class', 'card-img-top')
 
-    const divInfo = document.createElement('div')
-    divInfo.classList.add('info-card')
+    const divBodyCard = document.createElement('div')
+    divBodyCard.setAttribute('class', 'card-body px-5')
 
-    const divNameContainer = document.createElement('div')
-    const h2 = document.createElement('h2')
-    h2.innerHTML = `${character.name}`
-
-    const pStatus = document.createElement('p')
-    pStatus.innerHTML = `${character.status} - ${character.species}`
+    const titleCard = document.createElement('h5')
+    titleCard.setAttribute('class', 'card-title')
+    titleCard.innerText = character.name
+    
+    const pCardStatus = document.createElement('p')
+    pCardStatus.innerHTML = `${character.status} - ${character.species}`
+    pCardStatus.setAttribute('class', 'card-text status')
     if(character.status === 'Alive') {
-      pStatus.classList.add('status-alive')
+      pCardStatus.classList.add('alive')
     } else if(character.status === 'Dead') {
-      pStatus.classList.add('status-dead')
+      pCardStatus.classList.add('dead')
     } else {
-      pStatus.classList.add('status-unknown')
+      pCardStatus.classList.add('unknown')
     }
 
-    const divLastLocation = document.createElement('div')
-    const pLastLocation = document.createElement('p')
-    pLastLocation.classList.add('location-info')
-    pLastLocation.innerHTML = 'Last Known Location'
-    const pLocationInfo = document.createElement('p')
-    pLocationInfo.innerHTML = `${character.location.name}`
+    const dlCard = document.createElement('dl')
+    const dtLocation = document.createElement('dt')
+    dtLocation.innerText = 'Last Known Location'
 
-    const divSeeIn = document.createElement('div')
-    const pSeeIn = document.createElement('p')
-    pSeeIn.classList.add('location-info')
-    pSeeIn.innerHTML = 'Last Seen In'
-    const pSeeInInfo = document.createElement('p')
+    const ddLocation = document.createElement('dd')
+    ddLocation.innerText = character.location.name
 
+    const dtLastSeen = document.createElement('dt')
+    dtLastSeen.innerText = 'Last Seen In'
+
+    const ddLastSeen = document.createElement('dd')
     const ultimoEpisodio = character.episode[character.episode.length -1]
     const respostaLocalizacao = await axios.get(`${ultimoEpisodio}`)
     const ultimaLocalizacao = respostaLocalizacao.data.name
-    pSeeInInfo.innerHTML = `${ultimaLocalizacao}`
+    ddLastSeen.innerText = ultimaLocalizacao
 
-    divNameContainer.appendChild(h2)
-    divNameContainer.appendChild(pStatus)
-    divLastLocation.appendChild(pLastLocation)
-    divLastLocation.appendChild(pLocationInfo)
-    divSeeIn.appendChild(pSeeIn)
-    divSeeIn.appendChild(pSeeInInfo)
+    dlCard.appendChild(dtLocation)
+    dlCard.appendChild(ddLocation)
+    dlCard.appendChild(dtLastSeen)
+    dlCard.appendChild(ddLastSeen)
 
-    divInfo.appendChild(divNameContainer)
-    divInfo.appendChild(divLastLocation)
-    divInfo.appendChild(divSeeIn)
+    divBodyCard.appendChild(titleCard)
+    divBodyCard.appendChild(pCardStatus)
+    divBodyCard.appendChild(dlCard)
 
-    divCard.appendChild(img)
-    divCard.appendChild(divInfo)
-
-    sectionCards.appendChild(divCard)
-
-
-  }) 
+    divCard.appendChild(imgCard)
+    divCard.appendChild(divBodyCard)
+    divContainerCards.appendChild(divCard)
+    divCol.appendChild(divContainerCards)
+    rowCards.appendChild(divCol)
+  })
 }
 
-///montar botoes
-function montarBotoes(quantidade) {
-  for(let contador = 1; contador <= quantidade; contador++) {
-    const containerPaginacao = document.getElementById('container-paginacao')
+function mudarBotoes(prev, next) {
+  botaoAtual.children[0].innerText = paginaAtual
 
-    const button = document.createElement('button')
-    button.setAttribute('class', 'btn-paginacao')
-    button.innerText = `Page ${contador}`
-    
+  if (!prev) {
+    botaoPrev.classList.remove('cursor-pointer')
+    botaoPrev.classList.add('disabled')
+} else {
+    botaoPrev.classList.add('cursor-pointer')
+    botaoPrev.classList.remove('disabled')
+}
 
-    if(contador === paginaAtual) {
-      button.disabled = true
-    }
+if (!next) {
+    botaoNext.classList.remove('cursor-pointer')
+    botaoNext.classList.add('disabled')
+} else {
+    botaoNext.classList.add('cursor-pointer')
+    botaoNext.classList.remove('disabled')
+}
+}
 
-    button.addEventListener('click', async () => {
-      const respostaApi = await buscarPersonagens(contador)
-      const buttons = document.querySelectorAll('.btn-paginacao')
+async function proximaPagina() {
+  if (!botaoNext.classList.contains('disabled')) {
+      ++paginaAtual
 
-      buttons.forEach(item => {
-        item.disabled = false
-        item.setAttribute('class', 'btn-paginacao')
-      })
-      button.disabled = true
-      button.classList.add('button-disable')
+      const dadosAPI = await buscarPersonagens(paginaAtual)
 
+      montarCards(dadosAPI.results)
+      mudarBotoes(dadosAPI.info.prev, dadosAPI.info.next)
+  }
+}
 
+async function paginaAnterior() {
+  if (!botaoPrev.classList.contains('disabled')) {
+      --paginaAtual
 
-      montarCards(respostaApi.results)
-    })
+      const dadosAPI = await buscarPersonagens(paginaAtual)
 
-    containerPaginacao.appendChild(button)
+      montarCards(dadosAPI.results)
+      mudarBotoes(dadosAPI.info.prev, dadosAPI.info.next)
   }
 }
