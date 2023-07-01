@@ -1,6 +1,7 @@
 const botaoPrev = document.getElementById('botao-prev')
 const botaoAtual = document.getElementById('botao-atual')
 const botaoNext = document.getElementById('botao-next')
+const h1 = document.getElementById('titulo')
 let paginaAtual = 1
 
 
@@ -170,6 +171,7 @@ async function proximaPagina() {
 
       montarCards(dadosAPI.results)
       mudarBotoes(dadosAPI.info.prev, dadosAPI.info.next)
+    h1.scrollIntoView({behavior: 'smooth'});
   }
 }
 
@@ -181,5 +183,6 @@ async function paginaAnterior() {
 
       montarCards(dadosAPI.results)
       mudarBotoes(dadosAPI.info.prev, dadosAPI.info.next)
+      h1.scrollIntoView({behavior: 'smooth'});
   }
 }

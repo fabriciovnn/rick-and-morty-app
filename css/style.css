@@ -1,3 +1,7 @@
+/* scroll suave */
+html {
+  scroll-behavior: smooth;
+}
 /*header*/
 .input-group-text {
   background-color: #fff;
